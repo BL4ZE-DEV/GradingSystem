@@ -9,8 +9,9 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Tymon\JWTAuth\Contracts\JWTSubject;
 
-class User extends Authenticatable
+class User extends Authenticatable implements JWTSubject
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory, Notifiable,UuidTrait;
@@ -21,13 +22,15 @@ class User extends Authenticatable
      * @var array<int, string>
      */
 
-    protected $uuidcolumn = 'userId';
+    
+     protected $uuidColumn = 'userId'; // Specify the column for UUID
 
-    protected $fillable = [
-        'name',
-        'email',
-        'password',
-    ];
+     protected $fillable = [
+         'name',
+         'email',
+         'password',
+         'roleId',
+     ];
 
     /**
      * The attributes that should be hidden for serialization.
@@ -37,6 +40,9 @@ class User extends Authenticatable
     protected $hidden = [
         'password',
         'remember_token',
+        'id',
+        'created_at',
+        'updated_at'
     ];
 
     /**
@@ -56,5 +62,21 @@ class User extends Authenticatable
     public function role():BelongsTo
     {
         return $this->belongsTo(Role::class);
+    }
+
+
+    public function getJWTIdentifier()
+    {
+        return $this->getKey();
+    }
+
+    /**
+     * Return a key value array, containing any custom claims to be added to the JWT.
+     *
+     * @return array
+     */
+    public function getJWTCustomClaims()
+    {
+        return [];
     }
 }

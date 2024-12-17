@@ -12,7 +12,12 @@ class Teacher extends Model
     /** @use HasFactory<\Database\Factories\TeacherFactory> */
     use HasFactory,UuidTrait;
 
-    protected $uuidcolumn = 'teacherId';
+
+    protected $fillable = [
+        'userId'
+    ];
+
+    protected $uuidColumn = 'teacherId';
 
     public function subject():HasMany
     {

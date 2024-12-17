@@ -12,7 +12,7 @@ class Role extends Model
     /** @use HasFactory<\Database\Factories\RoleFactory> */
     use HasFactory, UuidTrait;
 
-    protected $uuidcolumn = 'roleId';
+    protected $uuidColumn = 'roleId';
 
 
     public function user(): HasMany

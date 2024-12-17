@@ -12,7 +12,11 @@ class Subject extends Model
     /** @use HasFactory<\Database\Factories\SubjectFactory> */
     use HasFactory, UuidTrait;
 
-    protected $uuidcolumn = 'subjectId';
+    protected $fillable = [
+        'userId'
+    ];
+
+    protected $uuidColumn = 'subjectId';
 
     Public function teacher():BelongsTo
     {

@@ -11,5 +11,5 @@ class Student extends Model
     /** @use HasFactory<\Database\Factories\StudentFactory> */
     use HasFactory, UuidTrait;
     
-    protected $uuidcolumn= 'studentId';
+    protected $uuidColumn= 'studentId';
 }

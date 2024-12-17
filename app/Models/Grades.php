@@ -11,5 +11,5 @@ class Grades extends Model
     /** @use HasFactory<\Database\Factories\GradesFactory> */
     use HasFactory, UuidTrait;
 
-    protected $uuidcolumn= 'gradeId';
+    protected $uuidColumn= 'gradeId';
 }
