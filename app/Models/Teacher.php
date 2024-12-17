@@ -6,6 +6,7 @@ use App\Traits\UuidTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Teacher extends Model
 {
@@ -17,10 +18,16 @@ class Teacher extends Model
         'userId'
     ];
 
+    protected $hidden = [
+        'id',
+        'created_at',
+        'updated_at'
+    ];
+
     protected $uuidColumn = 'teacherId';
 
-    public function subject():HasMany
+    public function subject():HasOne
     {
-        return $this->hasMany(Subject::class, 'teacherId');
+        return $this->hasOne(Subject::class, 'teacherId');
     }
 }
