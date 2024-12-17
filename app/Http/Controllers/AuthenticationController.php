@@ -66,7 +66,44 @@ class AuthenticationController extends Controller
 
     }
 
-    public function login(){
+    public function login(Request $request){
+        $request->validate([
+            'email' =>  'required|email',
+            'password' => 'required'
+        ]);
 
+        $user = User::where('email' , $request->email)->first();
+
+        if(!$user || !Hash::check($request->password, $user->password)){
+            return response()->json([
+                'message' => 'invalid credentials'
+            ],401);
+        }
+
+        $token = JWTAuth::fromUser($user);
+
+         $role = Role::where('roleId', $user->roleId)->first();
+
+        if ($role && $role->name === 'teacher') {
+            $teacher = Teacher::where('userId', $user->userId)->first();
+
+            return response()->json([
+                'status' => true,
+                'token' => $token,
+                'user' => $user,
+                'teacher' => $teacher ? $teacher->load('subject') : null
+            ]);
+        }
+
+
+        $student = Student::where('userId', $user->userId)->first();
+
+        return response()->json([
+            'status' => true,
+            'token' => $token,
+            'user' => $user,
+            'student' => $student ? $student->load('subject') : null
+        ]);
+    
     }
 }

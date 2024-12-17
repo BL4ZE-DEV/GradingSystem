@@ -12,3 +12,4 @@ use Illuminate\Support\Facades\Route;
 // Route::post('evaluate', [EvaluationController::class , 'Add']);
 
 Route::post('register', [AuthenticationController::class , 'register']);
+Route::post('login', [AuthenticationController::class, 'login']);

@@ -14,6 +14,9 @@ return new class extends Migration
         Schema::create('grades', function (Blueprint $table) {
             $table->id();
             $table->uuid('gradeId')->unique();
+            $table->integer('firstTest');
+            $table->integer('secondTest');
+            $table->integer('exam');
             $table->foreignUuid('studentId')->constrained('students', 'studentId');
             $table->foreignUuid('teacherId')->constrained('teachers', 'teacherId');
             $table->timestamps();
